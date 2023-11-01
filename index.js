@@ -12,6 +12,39 @@ function getComputerChoice(){
     return array[random_int];
 }
 
-
+function playRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection){
+        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} tie`);
+    }
+    else if (playerSelection === "Rock" && computerSelection ==="Paper"){
+        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you lose`);
+    }
+    else if (playerSelection === "Rock" && computerSelection ==="Scissors"){
+        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you win`);
+    }
+    else if (playerSelection === "Paper" && computerSelection ==="Scissors"){
+        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you lose`);
+    }
+    else if (playerSelection === "Paper" && computerSelection ==="Rock"){
+        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you win`);
+    }
+    else if (playerSelection === "Scissors" && computerSelection ==="Paper"){
+        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you win`);
+    }
+    else if (playerSelection === "Scissors" && computerSelection ==="Rock"){
+        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you lose`);
+    }
+    else{
+        console.log("something is wrong!");
+    }
+}
+function game(rounds){
+    // rounds must be int
+    for (let index = 0; index < rounds; index++) {
+        let playerSelection = prompt("Please input Rock Paper Scissors");
+        computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection);
+    }
+}
 
 
