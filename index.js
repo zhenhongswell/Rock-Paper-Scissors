@@ -13,38 +13,150 @@ function getComputerChoice(){
 }
 
 function playRound(playerSelection, computerSelection) {
+    let result = null;
     if (playerSelection === computerSelection){
-        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} tie`);
+        result = null;
     }
     else if (playerSelection === "Rock" && computerSelection ==="Paper"){
-        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you lose`);
+        result = false;
     }
     else if (playerSelection === "Rock" && computerSelection ==="Scissors"){
-        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you win`);
+        result = true;
     }
     else if (playerSelection === "Paper" && computerSelection ==="Scissors"){
-        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you lose`);
+        result = false;
     }
     else if (playerSelection === "Paper" && computerSelection ==="Rock"){
-        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you win`);
+        result = true;
     }
     else if (playerSelection === "Scissors" && computerSelection ==="Paper"){
-        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you win`);
+        result = true;
     }
     else if (playerSelection === "Scissors" && computerSelection ==="Rock"){
-        console.log(`playerSelection:${playerSelection} computerSelection ${computerSelection} you lose`);
+        result = false;
     }
     else{
-        console.log("something is wrong!");
+        result = "something is wrong!";
     }
+    return result;
 }
-function game(rounds){
-    // rounds must be int
-    for (let index = 0; index < rounds; index++) {
-        let playerSelection = prompt("Please input Rock Paper Scissors");
-        computerSelection = getComputerChoice();
-        playRound(playerSelection, computerSelection);
+
+const rockButton = document.querySelector(".Rock");
+const paperButton = document.querySelector(".Paper");
+const scissorsButton = document.querySelector(".Scissors");
+const resetButton = document.querySelector('.reset');
+const displayPlayerPointDiv = document.querySelector('.player-point');
+const displayNpcPointDiv = document.querySelector('.npc-point');
+const displayWinnerDiv = document.querySelector('.winner');
+const displayWinnerTextContent = displayWinnerDiv.textContent;
+let playerPoint = 0;
+const playerPointInit = playerPoint;
+let npcPoint = 0;
+const npcPointInit = npcPoint;
+
+const endGameEvent = new Event("EndGame");
+
+document.addEventListener("EndGame",()=>{
+    const buttons= document.querySelectorAll('button');
+    buttons.forEach(button => {
+        if (button.className === "reset") {
+            return;
+        }
+        button.disabled = true;
+    });
+})
+
+resetButton.addEventListener("click",()=>{
+    const buttons= document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.disabled = false;
+    });
+    playerPoint = playerPointInit;
+    npcPoint = npcPointInit;
+    displayPlayerPointDiv.textContent = playerPointInit;
+    displayNpcPointDiv.textContent = npcPointInit;
+    displayWinnerDiv.textContent = displayWinnerTextContent;
+})
+
+rockButton.addEventListener("click",()=>{
+    let result = playRound(rockButton.value,getComputerChoice());
+    if (result == null){
+        return;
     }
-}
+    if (result){
+        playerPoint+=1;
+    }
+    else{
+        npcPoint+=1;
+    }
+    displayPlayerPointDiv.textContent = playerPoint;
+    displayNpcPointDiv.textContent = npcPoint;
+
+    if (playerPoint === 5){
+        displayWinnerDiv.textContent = "player wins!";
+        document.dispatchEvent(endGameEvent);
+    }
+    if (npcPoint === 5){
+        displayWinnerDiv.textContent = "npc wins!";
+        document.dispatchEvent(endGameEvent);
+    }
+})
+
+paperButton.addEventListener("click",()=>{
+    let result = playRound(paperButton.value,getComputerChoice());
+    if (result == null){
+        return;
+    }
+    if (result){
+        playerPoint+=1;
+    }
+    else{
+        npcPoint+=1;
+    }
+    displayPlayerPointDiv.textContent = playerPoint;
+    displayNpcPointDiv.textContent = npcPoint;
+
+    if (playerPoint === 5){
+        displayWinnerDiv.textContent = "player wins!";
+        document.dispatchEvent(endGameEvent);
+    }
+    if (npcPoint === 5){
+        displayWinnerDiv.textContent = "npc wins!";
+        document.dispatchEvent(endGameEvent);
+    }
+})
+
+scissorsButton.addEventListener("click",()=>{
+    let result = playRound(scissorsButton.value,getComputerChoice());
+    if (result == null){
+        return;
+    }
+    if (result){
+        playerPoint+=1;
+    }
+    else{
+        npcPoint+=1;
+    }
+    displayPlayerPointDiv.textContent = playerPoint;
+    displayNpcPointDiv.textContent = npcPoint;
+
+    if (playerPoint === 5){
+        displayWinnerDiv.textContent = "player wins!";
+        document.dispatchEvent(endGameEvent);
+    }
+    if (npcPoint === 5){
+        displayWinnerDiv.textContent = "npc wins!";
+        document.dispatchEvent(endGameEvent);
+    }
+})
+
+// function game(rounds){
+//     // rounds must be int
+//     for (let index = 0; index < rounds; index++) {
+//         let playerSelection = prompt("Please input Rock Paper Scissors");
+//         computerSelection = getComputerChoice();
+//         playRound(playerSelection, computerSelection);
+//     }
+// }
 
 
